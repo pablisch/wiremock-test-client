@@ -2,28 +2,16 @@ import './App.css'
 import {useState} from "react"
 import axios from "axios"
 import {baseUrl} from "./data.js";
+import InfoPanel from "./components/InfoPanel.jsx";
 
 function App() {
   const [stuff, setStuff] = useState([])
-
-  const handleGetStuff = async () => {
-    const response = await axios.get(`${baseUrl}/stuff`)
-      console.log(response.data)
-    setStuff(response.data)
-  }
+  const [colours, setColours] = useState([])
 
   return (
     <div className="app">
-      <button onClick={handleGetStuff}>Get stuff</button>
-      <div className="stuff-container">
-        {stuff.length > 0 ? stuff.map(item => (
-            <div className="stuff-item" key={item.id}>
-            <h1 className="stuff-name">{item.name}</h1>
-            <p className="stuff-description">{item.description}</p>
-            </div>
-        )) : null}
-        {/*  {typeof stuff}*/}
-      </div>
+        <InfoPanel resource={stuff} setResource={setStuff} resourceName={"stuff"} />
+        <InfoPanel resource={colours} setResource={setColours} resourceName={"colours"} />
     </div>
   )
 }
